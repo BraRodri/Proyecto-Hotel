@@ -1,0 +1,22 @@
+.login,
+.image {
+  min-height: 100vh;
+}
+
+.bg-image {
+  background-image: url('../images/fondo.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #ddd;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #FF1727 !important;
+    border-color: #FF1727 !important;
+}
+
+.swal2-styled.swal2-confirm:focus {
+    border-color: #FF1727 !important;
+    box-shadow: 0 0 0 3px #ddd !important;
+}
