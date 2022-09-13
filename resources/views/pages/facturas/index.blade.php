@@ -35,6 +35,7 @@
                             <th>Hrs Servicio</th>
                             <th>Hora Ingreso</th>
                             <th>Hora Salida</th>
+                            <th>Tipo Pago</th>
                             <th>Precio</th>
                             <th>Acciones</th>
                         </tr>
@@ -47,6 +48,7 @@
                             <th>Hrs Servicio</th>
                             <th>Hora Ingreso</th>
                             <th>Hora Salida</th>
+                            <th>Tipo Pago</th>
                             <th>Precio</th>
                             <th>Acciones</th>
                         </tr>

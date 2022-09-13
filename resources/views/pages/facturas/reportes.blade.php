@@ -29,7 +29,7 @@
             <div class="card-body">
                 <form class="row" action="{{ route('facturas.reportes.generar') }}" method="POST" target="_blank">
                     @csrf
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-4 col-12">
                         <label for="inputState" class="form-label">Cuartos:</label>
                         <select id="cuartos" class="form-select" name="cuartos">
                             <option value="" selected>- Seleccione -</option>
@@ -40,7 +40,7 @@
                             @endif
                         </select>
                     </div>
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-4 col-12">
                         <label for="" class="form-label">Tipo de Ingreso</label>
                         <select id="tipo_ingreso" class="form-select" name="tipo_ingreso">
                             <option value="" selected>- Seleccione -</option>
@@ -49,6 +49,13 @@
                                     <option value="{{ $item }}">{{ $item }}</option>
                                 @endforeach
                             @endif
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-12">
+                        <label for="" class="form-label">Tipo</label>
+                        <select id="tipo" class="form-select" name="tipo">
+                            <option value="1" selected>PDF</option>
+                            <option value="2">EXCEL</option>
                         </select>
                     </div>
                     <div class="col-lg-4 col-12 mt-4">

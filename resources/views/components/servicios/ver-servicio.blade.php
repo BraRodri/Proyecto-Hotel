@@ -49,12 +49,17 @@
                         <input class="form-control" id="lb_hora_salida" disabled>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <label for="" class="form-label">Tipo Pago</label>
+                        <input class="form-control" id="lb_tipo_pago" disabled>
+                    </div>
+
+                    <div class="col-md-4">
                         <label for="" class="form-label">Precio</label>
                         <input class="form-control" id="lb_precio" disabled>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="" class="form-label">Estado</label>
                         <input class="form-control" id="lb_estado" disabled>
                     </div>

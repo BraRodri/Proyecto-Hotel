@@ -76,12 +76,22 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <label for="" class="form-label">Tipo de Pago</label>
+                        <select class="form-select" name="pago" required>
+                            <option value="">- Seleccione -</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Debito">Debito</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
                         <label for="" class="form-label">Precio</label>
                         <input type="number" class="form-control" id="input_precio" name="precio" min="5000" required>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="" class="form-label">Estado</label>
                         <select class="form-select" name="estado" required>
                             <option value="">- Seleccione -</option>

@@ -16,6 +16,7 @@ class Servicios extends Model
         'horas_servicio',
         'hora_ingreso',
         'hora_salida',
+        'tipo_pago',
         'precio',
         'estado'
     ];

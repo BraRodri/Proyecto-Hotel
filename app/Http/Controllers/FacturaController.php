@@ -44,6 +44,7 @@ class FacturaController extends Controller
                     $value->horas_servicio,
                     $value->hora_ingreso,
                     $value->hora_salida,
+                    $value->tipo_pago,
                     '$'.number_format($value->precio, 0, ",", "."),
                     $botones
                 );
@@ -119,20 +120,30 @@ class FacturaController extends Controller
 
         $datos = $datos->get();
 
-        //dd('hola');
-        return (new FastExcel($datos))->download('reporte_facturas_'.date('YmdHms').'.xlsx', function ($data) {
-            return [
-                "#" => $data->id,
-                "Cuarto" => $data->cuarto,
-                "Tipo de Ingreso" => $data->tipo_ingreso,
-                "Placa del Vehiculo" => $data->placa_vehiculo,
-                "Horas del Servicio" => $data->horas_servicio,
-                "Fecha de Ingreso" => $data->hora_ingreso,
-                "Fecha de Salida" => $data->hora_salida,
-                "Precio" => $data->precio,
-                "Fecha Creación" => date("Y-m-d h:i:s a", strtotime($data->created_at))
-            ];
-        });
+        if($request->tipo == 1){
+
+            $pdf = Pdf::loadView('pdf.reporte_facturas', compact('datos'));
+            return $pdf->stream("pdf_reporte_facturas.pdf");
+
+        } else {
+
+            //dd('hola');
+            return (new FastExcel($datos))->download('reporte_facturas_'.date('YmdHms').'.xlsx', function ($data) {
+                return [
+                    "#" => $data->id,
+                    "Cuarto" => $data->cuarto,
+                    "Tipo de Ingreso" => $data->tipo_ingreso,
+                    "Placa del Vehiculo" => $data->placa_vehiculo,
+                    "Horas del Servicio" => $data->horas_servicio,
+                    "Fecha de Ingreso" => $data->hora_ingreso,
+                    "Fecha de Salida" => $data->hora_salida,
+                    "Tipo de Pago" => $data->tipo_pago,
+                    "Precio" => $data->precio,
+                    "Fecha Creación" => date("Y-m-d h:i:s a", strtotime($data->created_at))
+                ];
+            });
+
+        }
     }
 
 }

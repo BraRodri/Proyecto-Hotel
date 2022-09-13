@@ -22,6 +22,7 @@ class CreateServiciosTable extends Migration
             $table->string('horas_servicio');
             $table->dateTime('hora_ingreso');
             $table->dateTime('hora_salida');
+            $table->string('tipo_pago');
             $table->float('precio', 15, 2)->default(0);
             $table->integer('estado');
 

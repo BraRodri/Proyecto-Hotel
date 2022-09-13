@@ -147,10 +147,18 @@
                                     </td>
                                 </tr>
                                 <tr style="padding-top: 20px;">
-                                    <td width="20%" style="padding-bottom: 5px;">ora Salida:</td>
+                                    <td width="20%" style="padding-bottom: 5px;">Hora Salida:</td>
                                     <td width="80%" style="padding-bottom: 5px;">
                                         <div class="border_abajo">
                                             {{ $factura->hora_salida }}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="padding-top: 20px;">
+                                    <td width="20%" style="padding-bottom: 5px;">Tipo Pago</td>
+                                    <td width="80%" style="padding-bottom: 5px;">
+                                        <div class="border_abajo">
+                                            {{ $factura->tipo_pago }}
                                         </div>
                                     </td>
                                 </tr>

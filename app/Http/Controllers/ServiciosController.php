@@ -6,6 +6,7 @@ use App\Helper\Helper;
 use App\Models\Cuartos;
 use App\Models\Facturas;
 use App\Models\Servicios;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class ServiciosController extends Controller
                     if(Auth::user()->can('Eliminar Servicios')){
                         $botones .= "<button onclick='eliminar(".$value->id.");' class='btn btn-danger btn-sm'><i class='fa-solid fa-trash'></i></button>";
                     }
-                    $botones .= "<a href='".route('servicios.factura', $value->id)."' target='_blank' class='btn btn-dark btn-sm'><i class='fa-solid fa-file-invoice'></i></a>";
+                    //$botones .= "<a href='".route('servicios.factura', $value->id)."' target='_blank' class='btn btn-dark btn-sm'><i class='fa-solid fa-file-invoice'></i></a>";
                 }
                 $botones .= '</div>';
 
@@ -53,6 +54,7 @@ class ServiciosController extends Controller
                     $value->horas_servicio,
                     $value->hora_ingreso,
                     $value->hora_salida,
+                    $value->tipo_pago,
                     '$'.number_format($value->precio, 0, ",", "."),
                     "<span class='badge bg-" . Helper::getColorEstadoServicio($value->estado) . "'>" . Helper::getEstadoServicio($value->estado) . "</span>",
                     $botones
@@ -81,6 +83,7 @@ class ServiciosController extends Controller
             'horas_servicio' => $request->horas_servicio,
             'hora_ingreso' => $fecha_ingreso,
             'hora_salida' => $fecha_salida,
+            'tipo_pago' => $request->pago,
             'precio' => $request->precio,
             'estado' => $request->estado,
         );
@@ -103,6 +106,7 @@ class ServiciosController extends Controller
                     'horas_servicio' => $request->horas_servicio,
                     'hora_ingreso' => $fecha_ingreso,
                     'hora_salida' => $fecha_salida,
+                    'tipo_pago' => $request->pago,
                     'precio' => $request->precio,
                 );
                 if(Facturas::create($crear_factura)){
@@ -157,7 +161,8 @@ class ServiciosController extends Controller
                 'hora_ingreso' => $data->hora_ingreso,
                 'hora_salida' => $data->hora_salida,
                 'precio' => '$'.number_format($data->precio, 0, ",", "."),
-                'estado' => Helper::getEstadoServicio($data->estado)
+                'estado' => Helper::getEstadoServicio($data->estado),
+                'tipo_pago' => $data->tipo_pago
             );
 
         } else {
@@ -243,22 +248,33 @@ class ServiciosController extends Controller
 
         $datos = $datos->get();
 
-        //dd('hola');
-        return (new FastExcel($datos))->download('reporte_servicios_'.date('YmdHms').'.xlsx', function ($data) {
-            return [
-                "#" => $data->id,
-                "Tipo Servicio Cuarto" => ($data->cuarto) ? $data->cuarto->tipoServicios->nombre : '',
-                "Cuarto" => ($data->cuarto) ? $data->cuarto->nombre : '',
-                "Tipo de Ingreso" => Helper::getTiposIngresos($data->tipo_ingreso),
-                "Placa del Vehiculo" => $data->placa_vehiculo,
-                "Horas del Servicio" => $data->horas_servicio,
-                "Fecha de Ingreso" => $data->hora_ingreso,
-                "Fecha de Salida" => $data->hora_salida,
-                "Precio" => $data->precio,
-                "Estado" => Helper::getEstadoServicio($data->estado),
-                "Fecha Creación" => date("Y-m-d h:i:s a", strtotime($data->created_at))
-            ];
-        });
+        if($request->tipo == 1){
+
+            $pdf = Pdf::loadView('pdf.reporte', compact('datos'));
+            return $pdf->stream("pdf_reporte_servicios.pdf");
+
+        } else {
+
+            //dd('hola');
+            return (new FastExcel($datos))->download('reporte_servicios_'.date('YmdHms').'.xlsx', function ($data) {
+                return [
+                    "#" => $data->id,
+                    "Tipo Servicio Cuarto" => ($data->cuarto) ? $data->cuarto->tipoServicios->nombre : '',
+                    "Cuarto" => ($data->cuarto) ? $data->cuarto->nombre : '',
+                    "Tipo de Ingreso" => Helper::getTiposIngresos($data->tipo_ingreso),
+                    "Placa del Vehiculo" => $data->placa_vehiculo,
+                    "Horas del Servicio" => $data->horas_servicio,
+                    "Fecha de Ingreso" => $data->hora_ingreso,
+                    "Fecha de Salida" => $data->hora_salida,
+                    "Tipo de Pago" => $data->tipo_pago,
+                    "Precio" => $data->precio,
+                    "Estado" => Helper::getEstadoServicio($data->estado),
+                    "Fecha Creación" => date("Y-m-d h:i:s a", strtotime($data->created_at))
+                ];
+            });
+
+        }
+
     }
 
 }

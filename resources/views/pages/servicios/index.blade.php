@@ -42,6 +42,7 @@
                             <th>Hrs Servicio</th>
                             <th>Hora Ingreso</th>
                             <th>Hora Salida</th>
+                            <th>Tipo Pago</th>
                             <th>Precio</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -55,6 +56,7 @@
                             <th>Hrs Servicio</th>
                             <th>Hora Ingreso</th>
                             <th>Hora Salida</th>
+                            <th>Tipo Pago</th>
                             <th>Precio</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -266,6 +268,7 @@
                         $('#lb_hora_salida').val(info.hora_salida);
                         $('#lb_precio').val(info.precio);
                         $('#lb_estado').val(info.estado);
+                        $('#lb_tipo_pago').val(info.tipo_pago);
 
                         Swal.fire({
                             text: "Información Cargada",
